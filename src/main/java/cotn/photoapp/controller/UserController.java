@@ -6,6 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.MediaType;
 
+
+import javax.validation.Valid;
 import java.util.Date;
 
 /**
@@ -18,27 +20,26 @@ import java.util.Date;
 public class UserController {
 
     @GetMapping(value = "/userDetails", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public ResponseEntity<UserDetails>  getUserDetails()
-    {
-        UserDetails userDetails=new UserDetails();
+    public ResponseEntity<UserDetails> getUserDetails() {
+        UserDetails userDetails = new UserDetails();
         userDetails.setUid(1);
         userDetails.setFirstname("Kaustav");
         userDetails.setLastname("Basu");
         userDetails.setDateOfBirth(new Date());
 
-        return  new ResponseEntity<UserDetails>(userDetails, HttpStatus.FOUND) ;
+        return new ResponseEntity<UserDetails>(userDetails, HttpStatus.FOUND);
     }
 
-    @PostMapping(value="/createUsers")
-    public ResponseEntity<UserDetails> createUsers(@RequestBody UserDetails userDetails)
-    {
+    @PostMapping(value = "/createUsers")
+    public ResponseEntity<UserDetails> createUsers(@Valid @RequestBody UserDetails userDetails) {
+        UserDetails userDetailsResponse = new UserDetails();
+        userDetailsResponse.setUid(userDetails.getUid());
+        userDetailsResponse.setFirstname(userDetails.getFirstname());
+        userDetailsResponse.setLastname(userDetails.getLastname());
+        userDetailsResponse.setDateOfBirth(userDetails.getDateOfBirth());
+        userDetailsResponse.setEmail(userDetails.getEmail());
 
-        userDetails.setUid(userDetails.getUid());
-        userDetails.setFirstname(userDetails.getFirstname());
-        userDetails.setLastname(userDetails.getLastname());
-        userDetails.setDateOfBirth(userDetails.getDateOfBirth());
-
-        return  new ResponseEntity<UserDetails>(userDetails, HttpStatus.CREATED) ;
+        return new ResponseEntity<UserDetails>(userDetailsResponse, HttpStatus.OK);
 
     }
 }
