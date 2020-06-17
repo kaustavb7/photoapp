@@ -21,6 +21,10 @@ public class UserController {
 
     @GetMapping(value = "/userDetails", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<UserDetails> getUserDetails() {
+        String check = null;
+        System.out.println(check.length());
+
+
         UserDetails userDetails = new UserDetails();
         userDetails.setUid(1);
         userDetails.setFirstname("Kaustav");
@@ -32,6 +36,8 @@ public class UserController {
 
     @PostMapping(value = "/createUsers")
     public ResponseEntity<UserDetails> createUsers(@Valid @RequestBody UserDetails userDetails) {
+
+
         UserDetails userDetailsResponse = new UserDetails();
         userDetailsResponse.setUid(userDetails.getUid());
         userDetailsResponse.setFirstname(userDetails.getFirstname());
