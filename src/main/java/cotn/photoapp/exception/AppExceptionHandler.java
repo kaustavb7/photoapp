@@ -25,5 +25,11 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<Object>(errorMessage, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @ExceptionHandler(value = {UserServiceException.class})
+    public ResponseEntity<Object> handleUserServiceException(UserServiceException ex, WebRequest wr) {
+        ErrorMessage errorMessage = new ErrorMessage(new Date(), ex.toString());
+        return new ResponseEntity<Object>(errorMessage, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
 
 }

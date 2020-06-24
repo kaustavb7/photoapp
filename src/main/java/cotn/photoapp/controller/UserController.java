@@ -1,5 +1,6 @@
 package cotn.photoapp.controller;
 
+import cotn.photoapp.exception.UserServiceException;
 import cotn.photoapp.model.UserDetails;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,8 +22,8 @@ public class UserController {
 
     @GetMapping(value = "/userDetails", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<UserDetails> getUserDetails() {
-        String check = null;
-        System.out.println(check.length());
+
+        if (true) throw new UserServiceException("This is a user service exception");
 
 
         UserDetails userDetails = new UserDetails();
